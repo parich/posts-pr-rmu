@@ -1,4 +1,4 @@
-// file : src/postsearch/view.js
+// file : src/post-pr-rmu/view.js
 
 import dompurify from "dompurify";
 const CATEGORY_SLUGS = [

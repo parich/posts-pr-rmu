@@ -112,7 +112,7 @@ function posts_pr_rmu_settings_page()
 	if (isset($_POST['posts_pr_rmu_reset_defaults'])) {
 		update_option('posts_pr_rmu_tab_active_color', '#e0ecff');
 		update_option('posts_pr_rmu_tab_text_color', '#2874fc');
-		update_option('posts_pr_rmu_pagination_bg', '#e0ecff');
+		update_option('posts_pr_rmu_pagination_bg', '#2874fc');
 		update_option('posts_pr_rmu_pagination_hover', '#d0e2ff');
 		update_option('posts_pr_rmu_pagination_active', '#e0ecff');
 		update_option('posts_pr_rmu_pagination_active_text', '#2874fc');
@@ -186,7 +186,7 @@ function posts_pr_rmu_settings_page()
 		<hr>
 		<h2>วิธีใช้งาน Shortcode</h2>
 		<p>
-			คัดลอก <code>[posts-pr-rmu]</code> ไปวางในหน้า/โพสต์ หรือใน Elementor (ผ่าน Shortcode Widget)
+			คัดลอก <code>[posts_pr_rmu]</code> ไปวางในหน้า/โพสต์ หรือใน Elementor (ผ่าน Shortcode Widget)
 			เพื่อแสดงฟอร์มค้นหาโพสต์
 		</p>
 	</div>
@@ -202,7 +202,6 @@ add_action('admin_init', function () {
 	register_setting('posts_pr_rmu_options', 'posts_pr_rmu_pagination_active_text');
 	register_setting('posts_pr_rmu_options', 'posts_pr_rmu_hide_input');
 });
-
 add_action('wp_head', function () {
 	$active_tab = esc_attr(get_option('posts_pr_rmu_tab_active_color', '#e0ecff'));
 	$text_tab = esc_attr(get_option('posts_pr_rmu_tab_text_color', '#2874fc'));
@@ -211,21 +210,24 @@ add_action('wp_head', function () {
 	$active_pagination = esc_attr(get_option('posts_pr_rmu_pagination_active', '#fff'));
 	$active_text_pagination = esc_attr(get_option('posts_pr_rmu_pagination_active_text', '#2874fc'));
 	echo "<style>
-       	.our-search .tab.active,
-		.our-search .tab:hover,
-		.our-search .tab:focus  {
-            background-color: $active_tab} !important;
+	.our-search .tab {
+			background-color: {$bg_pagination};
+		}
+        .our-search .tab.active,
+        .our-search .tab:hover,
+        .our-search .tab:focus  {
+            background-color: {$active_tab} !important;
             color: {$text_tab} !important;
         }
-		.our-search #pagination .pagination-btn {
-        	background: {$bg_pagination};
-    	}
-    	.our-search #pagination .pagination-btn:hover {
-        	background-color: {$hover_pagination};
-    	}
-    	.our-search #pagination .pagination-btn.active {
-        	background-color: {$active_pagination};
-        	color: {$active_text_pagination};
-    	}
+        .our-search #pagination .pagination-btn {
+            background: {$bg_pagination};
+        }
+        .our-search #pagination .pagination-btn:hover {
+            background-color: {$hover_pagination};
+        }
+        .our-search #pagination .pagination-btn.active {
+            background-color: {$active_pagination};
+            color: {$active_text_pagination};
+        }
     </style>";
 });
