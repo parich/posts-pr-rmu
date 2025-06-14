@@ -1,12 +1,7 @@
-// file : src/post-pr-rmu/view.js
-
 import dompurify from "dompurify";
-const CATEGORY_SLUGS = [
-	{ slug: "ภาพกิจกรรม", name: "ภาพกิจกรรม" },
-	{ slug: "จดหมายข่าวพระวรุณ", name: "จดหมายข่าวพระวรุณ" },
-	{ slug: "ข่าวประชาสัมพันธ์", name: "ข่าวประชาสัมพันธ์" },
-	{ slug: "ประกาศ", name: "ประกาศ" },
-];
+
+const CATEGORY_SLUGS = window.POSTS_PR_RMU_DATA?.categorySlugs || [];
+const BASE_URL = window.POSTS_PR_RMU_DATA?.baseUrl || "https://pr.rmu.ac.th/";
 
 const allSearchResults = document.querySelectorAll(".our-search");
 
@@ -44,7 +39,7 @@ function bringSearchToLife(el) {
 		if (activeTab) {
 			fetchAndRenderPosts(
 				activeTab.dataset.slug,
-				input ? input.value.trim() : "", // แก้ตรงนี้
+				input ? input.value.trim() : "",
 				resultsContainer,
 				currentPage,
 				paginationContainer,
@@ -87,7 +82,7 @@ async function fetchAndRenderPosts(
 			return;
 		}
 
-		const query = `https://pr.rmu.ac.th/wp-json/wp/v2/posts?categories=${catId}&search=${encodeURIComponent(
+		const query = `${BASE_URL}wp-json/wp/v2/posts?categories=${catId}&search=${encodeURIComponent(
 			searchTerm,
 		)}&page=${page}&per_page=8&_embed`;
 
@@ -118,9 +113,7 @@ async function fetchAndRenderPosts(
 
 async function getCategoryIdBySlug(slug) {
 	const res = await fetch(
-		`https://pr.rmu.ac.th/wp-json/wp/v2/categories?slug=${encodeURIComponent(
-			slug,
-		)}`,
+		`${BASE_URL}wp-json/wp/v2/categories?slug=${encodeURIComponent(slug)}`,
 	);
 	const categories = await res.json();
 	return categories[0]?.id || null;

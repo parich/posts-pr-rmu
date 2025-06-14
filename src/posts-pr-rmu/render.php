@@ -1,4 +1,3 @@
-<!-- file: src/posts-pr-rmu/render.php -->
 <?php
 // ตรวจสอบ option ซ่อน input search
 $hide_input = get_option('posts_pr_rmu_hide_input', false);

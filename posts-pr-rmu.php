@@ -59,6 +59,7 @@ function create_block_posts_pr_rmu_block_init()
 }
 add_action('init', 'create_block_posts_pr_rmu_block_init');
 
+// ฟังก์ชันนี้ใช้สำหรับการโหลดไฟล์ JavaScript และ CSS ที่จำเป็นสำหรับ block
 function posts_pr_rmu_enqueue_assets()
 {
 	if (is_singular() && has_shortcode(get_post()->post_content, 'posts_pr_rmu')) {
@@ -75,6 +76,22 @@ function posts_pr_rmu_enqueue_assets()
 			'1.0',
 			true
 		);
+
+		// ดึงค่าตัวเลือกจากฐานข้อมูล
+		$category_slugs = get_option('posts_pr_rmu_category_slugs', '');
+		$base_url = get_option('posts_pr_rmu_base_url', 'https://pr.rmu.ac.th/');
+		// แปลง category slugs เป็น array ของ object [{slug:..., name:...}, ...]
+		$cats = array_filter(array_map('trim', explode(',', $category_slugs)));
+		$cat_objs = array();
+		foreach ($cats as $cat) {
+			$cat_objs[] = array('slug' => $cat, 'name' => $cat);
+		}
+		// ส่งข้อมูลไปยัง JavaScript
+		wp_localize_script('posts-pr-rmu-view', 'POSTS_PR_RMU_DATA', array(
+			'categorySlugs' => $cat_objs,
+			'baseUrl' => $base_url,
+		));
+
 	}
 }
 add_action('wp_enqueue_scripts', 'posts_pr_rmu_enqueue_assets');
@@ -120,7 +137,7 @@ function posts_pr_rmu_settings_page()
 	}
 	?>
 	<div class="wrap">
-		<h1>Posts RP RMU Settings</h1>
+		<h1>Posts Settings</h1>
 		<form method="post" action="options.php">
 			<?php
 			settings_fields('posts_pr_rmu_options');
@@ -175,6 +192,23 @@ function posts_pr_rmu_settings_page()
 							value="<?php echo esc_attr(get_option('posts_pr_rmu_pagination_active_text', '#2874fc')); ?>">
 					</td>
 				</tr>
+				<tr valign="top">
+					<th scope="row">Category Slugs</th>
+					<td>
+						<input type="text" name="posts_pr_rmu_category_slugs"
+							value="<?php echo esc_attr(get_option('posts_pr_rmu_category_slugs', '')); ?>" />
+						<p class="description">ใส่ slug หมวดหมู่ (คั่นด้วย comma เช่น news,activity,announce)</p>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row">Base URL</th>
+					<td>
+						<input type="text" name="posts_pr_rmu_base_url"
+							value="<?php echo esc_attr(get_option('posts_pr_rmu_base_url', 'https://pr.rmu.ac.th/')); ?>" />
+						<p class="description">URL หลัก เช่น https://pr.rmu.ac.th/ สำคัญตรวจสอบเว็บไซต์ wordpress
+							ต้นทางก่อนว่าเปิดให้โดยเข้า https://pr.rmu.ac.th/wp-json/wp/v2/posts/ ถ้ามี response ใช้ได้</p>
+					</td>
+				</tr>
 			</table>
 			<?php submit_button(); ?>
 		</form>
@@ -201,6 +235,8 @@ add_action('admin_init', function () {
 	register_setting('posts_pr_rmu_options', 'posts_pr_rmu_pagination_active');
 	register_setting('posts_pr_rmu_options', 'posts_pr_rmu_pagination_active_text');
 	register_setting('posts_pr_rmu_options', 'posts_pr_rmu_hide_input');
+	register_setting('posts_pr_rmu_options', 'posts_pr_rmu_category_slugs'); // เพิ่มบรรทัดนี้
+	register_setting('posts_pr_rmu_options', 'posts_pr_rmu_base_url'); // และบรรทัดนี้
 });
 add_action('wp_head', function () {
 	$active_tab = esc_attr(get_option('posts_pr_rmu_tab_active_color', '#e0ecff'));

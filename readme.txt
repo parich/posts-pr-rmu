@@ -10,31 +10,46 @@ Example block scaffolded with Create Block tool.
 
 == Description ==
 
-- ปลั๊กอินนี้ช่วยให้คุณสามารถแสดงฟอร์มค้นหาโพสต์ในเว็บไซต์ WordPress ได้อย่างง่ายดาย  
-รองรับทั้งการใช้งานผ่าน Block Editor (Gutenberg) และ Shortcode  
-สามารถปรับแต่งสีของแท็บและปุ่มนำทาง (Pagination) ได้เองจากหน้า Settings  
-เหมาะสำหรับเว็บไซต์ที่ต้องการระบบค้นหาโพสต์แบบกำหนดเองและปรับแต่งดีไซน์ได้
+This is the long description. No limit, and you can use Markdown (as well as in the following sections).
 
-**คุณสมบัติหลัก**
-- เพิ่มฟอร์มค้นหาโพสต์ด้วย Block หรือ Shortcode [posts_pr_rmu]
-- ปรับแต่งสีแท็บและปุ่ม Pagination ได้จากเมนู Settings
-- รองรับการใช้งานร่วมกับ Elementor (ผ่าน Shortcode Widget)
-- มีปุ่ม Reset Default สำหรับคืนค่าการตั้งค่าเริ่มต้น
+For backwards compatibility, if this section is missing, the full length of the short description will be used, and
+Markdown parsed.
 
 == Installation ==
 
-1. ดาวน์โหลดไฟล์ `posts-pr-rmu.php` และโฟลเดอร์ `build` แล้ว zip ไฟล์ทั้งหมดไว้ในไฟล์เดียว
-2. นำไฟล์ zip นี้ไปติดตั้งผ่านหน้า Plugins > Add New > Upload Plugin ในแผงควบคุม WordPress
-3. ไปที่เมนู **Plugins** ในแผงควบคุม WordPress แล้วคลิก "Activate" ที่ปลั๊กอิน **Posts Pr Rmu**
-4. หลังเปิดใช้งาน สามารถตั้งค่าปลั๊กอินได้ที่เมนู **Settings > PostsPR-RMU**
+This section describes how to install the plugin and get it working.
 
-== Usage ==
+e.g.
 
-1. ไปที่เมนู **Settings > PostsPR-RMU** เพื่อปรับแต่งสีและตัวเลือกต่าง ๆ ตามต้องการ
-2. หากต้องการแสดงฟอร์มค้นหาโพสต์ ให้เพิ่ม Shortcode นี้ลงในหน้า/โพสต์ หรือใน Elementor (ผ่าน Shortcode Widget):
+1. Upload the plugin files to the `/wp-content/plugins/posts-pr-rmu` directory, or install the plugin through the WordPress plugins screen directly.
+1. Activate the plugin through the 'Plugins' screen in WordPress
 
-   [posts_pr_rmu]
 
-3. หรือสามารถเพิ่ม Block "Posts Pr Rmu" ผ่าน WordPress Block Editor ได้โดยตรง
-4. ปรับแต่งการแสดงผลเพิ่มเติมได้ที่หน้า Settings ของปลั๊กอิน
+== Frequently Asked Questions ==
 
+= A question that someone might have =
+
+An answer to that question.
+
+= What about foo bar? =
+
+Answer to foo bar dilemma.
+
+== Screenshots ==
+
+1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
+the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
+directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
+(or jpg, jpeg, gif).
+2. This is the second screen shot
+
+== Changelog ==
+
+= 0.1.0 =
+* Release
+
+== Arbitrary section ==
+
+You may provide arbitrary sections, in the same format as the ones above. This may be of use for extremely complicated
+plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
+"installation." Arbitrary sections will be shown below the built-in sections outlined above.
